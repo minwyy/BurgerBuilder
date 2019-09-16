@@ -7,10 +7,10 @@ const burger = (props) => {
         <div className={classes.Burger}>
         <BurgerIngredient type='bread-top' />
         <BurgerIngredient type='meat' />
+        <BurgerIngredient type='salad' />
         <BurgerIngredient type='bread-bottom' />
         </div>
     )
 }
-
 
 export default burger;
