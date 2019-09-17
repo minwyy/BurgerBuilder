@@ -1,7 +1,8 @@
 .Modal {
     position: fixed;
     z-index: 500;
-    background-color: white;
+    color: aliceblue;
+    background-color: #b44f15;
     width: 70%;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px black;
