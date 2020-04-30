@@ -4,23 +4,23 @@ import Button from '../Button/Button';
 
 
 class OrderSummary extends Component {
-    componentDidUpdate() {
-        console.log('did update');
+    componentWillUpdate() {
+        // console.log(this.props.ingredients);
     }
-    ingredientSummary = Object.keys(this.props.ingredients)
-    .map(igKey => {
-        return (<li key={igKey}>
-            <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {this.props.ingredients[igKey]} 
-        </li>)
-    })
 
     render () {
+        const ingredientSummary = Object.keys(this.props.ingredients)
+        .map(igKey => {
+            return (<li key={igKey}>
+                <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {this.props.ingredients[igKey]} 
+            </li>)
+        })
             return (
                 <Aux>
                     <h3>Your Order</h3>
                     <p>A delicious burger with the following ingredients:</p>
                     <ul>
-                        {this.ingredientSummary}
+                        {ingredientSummary}
                     </ul>
                     <p><strong>Total Price: ${this.props.price.toFixed(2)}</strong></p>
                     <p>Continue to Checkout?</p>
