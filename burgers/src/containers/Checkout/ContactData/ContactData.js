@@ -14,7 +14,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'ZhaZha J'
+                    placeholder: 'Your name'
                 },
                 value: ''
             },
@@ -23,7 +23,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Wattle St'
+                    placeholder: 'Street'
                 },
                 value: ''
             },
@@ -31,7 +31,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: '2009'
+                    placeholder: 'Postcode'
                 },
                 value: ''
             },
@@ -39,7 +39,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Australia'
+                    placeholder: 'Country'
                 },
                 value: ''
             },
@@ -47,7 +47,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'zzhaj@uts.edu.au'
+                    placeholder: 'email'
                 },
                 value: ''
             },
@@ -57,7 +57,7 @@ class ContactData extends Component {
                     options: [{value: 'fastest', displayValue: 'Fastest'},
                     {value: 'cheapest', displayValue: 'Cheapest'}]
                 },
-                value: ''
+                value: 'fastest'
             },
             paymentMethod: {
                 elementType: 'select',
@@ -65,7 +65,7 @@ class ContactData extends Component {
                     options: [{value: 'returnservices', displayValue: 'Returnservices'},
                     {value: 'new customer', displayValue: 'New customer'}]
                 },
-                value: ''
+                value: 'returnservices'
             }
         },
         loading: false
@@ -74,10 +74,16 @@ class ContactData extends Component {
     orderHandler = ( e ) => {
         // e.preventDefault();
         this.setState({loading: true})
+        const formData = {};
+        for (let formElement in this.state.orderForm) {
+            formData[formElement] = this.state.orderForm[formElement].value;
+        }
+        // console.log(formData);
+
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
- 
+            userInfo: formData
         }
         axios.post('/orders.json', order)
         .then (response => {
