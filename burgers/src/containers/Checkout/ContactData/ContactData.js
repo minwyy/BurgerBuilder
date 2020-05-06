@@ -85,6 +85,8 @@ class ContactData extends Component {
                     {value: 'cheapest', displayValue: 'Cheapest'}]
                 },
                 value: 'fastest',
+                valid: true,
+                validation: {}
             },
             paymentMethod: {
                 elementType: 'select',
@@ -93,9 +95,12 @@ class ContactData extends Component {
                     {value: 'new customer', displayValue: 'New customer'}]
                 },
                 value: 'returnservices',
+                valid: true,
+                validation: {}
             }
         },
-        loading: false
+        loading: false,
+        formIsValid: false
     }
 
     orderHandler = ( e ) => {
@@ -133,7 +138,11 @@ class ContactData extends Component {
         updatedFormElement.valid = this.checkValidity (updatedFormElement.value, updatedFormElement.validation);
         updatedForm[inputIdentifier]=updatedFormElement;
         // console.log(updatedFormElement);
-        this.setState({orderForm: updatedForm});
+        let formIsValid = true;
+        for (let inputIdentifier in updatedForm) {
+            formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({orderForm: updatedForm, formIsValid: formIsValid});
     }
 
     checkValidity (value, rules) {
@@ -176,7 +185,7 @@ class ContactData extends Component {
                         change={(event) => (this.inputChangeHandler(event, forElement.id))} />
                 ))}
             </form>
-            <Button btnType='Success' clicked={this.orderHandler}>Order</Button>
+            <Button btnType='Success' clicked={this.orderHandler} disabled={!this.state.formIsValid}>Order</Button>
         </React.Fragment>
         );
         if (this.state.loading) {
