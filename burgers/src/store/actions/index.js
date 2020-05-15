@@ -1,3 +1,3 @@
 export { addIngredient, removeIngredient, initIngredient } from './burgerBuilder';
 
-export { purchaseBurger, purchaseInit } from './order';
+export { purchaseBurger, purchaseInit, fetchOrder } from './order';
