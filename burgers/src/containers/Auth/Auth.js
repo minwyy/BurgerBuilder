@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import classes from './Auth.css';
 
 class Auth extends Component {
     state = {
@@ -37,13 +38,46 @@ class Auth extends Component {
         }
     }
 
+    checkValidity (value, rules) {
+        let isValid = true;
+        if (rules.required && isValid) {
+            isValid = value.trim() !== '';
+        }
+
+        if (rules.minLength && isValid) {
+            isValid = value.length >= rules.minLength;
+        }
+       
+        if (rules.maxLength && isValid) {
+            isValid = value.length <= rules.maxLength;
+        }
+        if (rules.isEmail && isValid) {
+            const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            isValid = pattern.test(value)
+        }
+        return isValid;
+    }
+
+    inputChangeHandler (event, controlName) {
+        const updatedControls = {
+            ...this.state.controls, 
+            [controlName]: {
+                ...this.state.controls[controlName],
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                touched: true
+            }
+        }
+        this.setState({controls: updatedControls})
+    }
+
     render() {
         const formElementsArray = [];
-        for (let key in this.state.orderForm) {
-            formElementsArray.push({id:key, config: this.state.orderForm[key]})
+        for (let key in this.state.controls) {
+            formElementsArray.push({id:key, config: this.state.controls[key]})
         }
-        const form = formElementsArray.map(formElement => (
-            <Input key={formElement.id}
+        const form = formElementsArray.map(forElement => (
+            <Input key={forElement.id}
             elementType={forElement.config.elementType}
             elementConfig={forElement.config.elementConfig}
             value={forElement.config.value}
@@ -54,10 +88,10 @@ class Auth extends Component {
             />
         ))
         return (
-            <div>
+            <div className={classes.Auth}>
                 <form>
                     {form}
-                    <Button btnType="Success" />
+                    <Button btnType="Success">Submit</Button>
                 </form>
             </div>
         )
