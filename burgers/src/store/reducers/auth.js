@@ -24,6 +24,11 @@ const reducer = (state=initState, action) => {
                 error: action.error,
                 loading: false
             })
+        case actionTypes.AUTH_EXPIRE:
+            return updateObject(state, {
+                token: null,
+                userId: null
+            })
         default:
             return state;
     }
