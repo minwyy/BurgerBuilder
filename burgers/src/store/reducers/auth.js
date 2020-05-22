@@ -25,7 +25,7 @@ const reducer = (state=initState, action) => {
                 error: action.error,
                 loading: false
             })
-        case actionTypes.AUTH_EXPIRE:
+        case actionTypes.AUTH_LOGOUT:
             return updateObject(state, {
                 token: null,
                 userId: null
