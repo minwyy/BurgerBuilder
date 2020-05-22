@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
@@ -28,6 +28,7 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
       <Switch>
+        <Route path="/auth" component={Auth} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/orders" component={Orders} />
         <Route path="/logout" component={Logout} />
@@ -55,4 +56,4 @@ const mapDispatchToProps = dispatch => {
   return {onAuthCheckLocal: () => dispatch(actions.authCheckLocal())}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (App);
+export default withRouter (connect(mapStateToProps, mapDispatchToProps) (App));
