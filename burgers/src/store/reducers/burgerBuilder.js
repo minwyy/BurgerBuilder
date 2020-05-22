@@ -4,7 +4,8 @@ import  { updateObject } from '../utility';
 const initialState = {
     ingredients: null,
     totalPrice: 6,
-    error: false
+    error: false,
+    building: false
 };
 
 const INGREDIENTS_PRICE = {
@@ -21,7 +22,8 @@ const reducer = (state = initialState, action) => {
             const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
             const updatedState = {
                 ingredients: updatedIngredients,
-                totalPrice: state.totalPrice + INGREDIENTS_PRICE[action.ingredientName]
+                totalPrice: state.totalPrice + INGREDIENTS_PRICE[action.ingredientName],
+                building: true
             }
            return updateObject(state, updatedState);
             // return {
@@ -34,7 +36,8 @@ const reducer = (state = initialState, action) => {
             const updatedIngredientsn = updateObject(state.ingredients, updatedIngredientn);
             const updatedStaten = {
                 ingredients: updatedIngredientsn,
-                totalPrice: state.totalPrice - INGREDIENTS_PRICE[action.ingredientName]
+                totalPrice: state.totalPrice - INGREDIENTS_PRICE[action.ingredientName],
+                building: true
             }
            return updateObject(state, updatedStaten);
         case actionTypes.SET_INGREDIENTS: 
@@ -45,7 +48,8 @@ const reducer = (state = initialState, action) => {
             meat: action.ingredients.meat,
         }, 
         totalPrice: 6,
-        error: false})
+        error: false,
+        building: false })
         case actionTypes.FETCHING_INGREDIENTS_FAILED:
            return updateObject(state, {error: true})
         default:
