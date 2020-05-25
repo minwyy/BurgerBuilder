@@ -53,7 +53,7 @@ export const auth = (email, password, isSignup) => {
         // console.log(authData);
         axios.post(url, authData)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             const expirationTime = new Date(new Date().getTime() + response.data.expiresIn * 1000);
             localStorage.setItem('token', response.data.idToken);
             localStorage.setItem('userId', response.data.localId);
@@ -62,7 +62,7 @@ export const auth = (email, password, isSignup) => {
             dispatch(authSuccess(response));
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             dispatch(authFail(err.response.data.error));
         })
     }
@@ -93,7 +93,7 @@ export const authCheckLocal = () => {
                 }
                 }
                 dispatch(authSuccess(retrivedData));
-                console.log(expirationTime.getTime() - new Date().getTime());
+                // console.log(expirationTime.getTime() - new Date().getTime());
                 dispatch(authTimeout(((expirationTime.getTime() - new Date().getTime()) / 1000)));
             }
         }
